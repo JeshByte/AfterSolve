@@ -18,8 +18,7 @@ The app fetches real-time data from the Codeforces API and presents it intuitive
 
 ## Introduction
 
-AfterSolve helps competitive programmers **upsolve problems from past contests** they actually attempted as participants. It uses the **Codeforces API** to fetch and display relevant problems in a clean, streamlined UI.
-
+A problemset platform designed for competitive programmers to **upsolve problems from past contests** they have actually participated in.
 ---
 
 ## Tech Stack
@@ -96,13 +95,13 @@ Navigate to [aftersolve.online](https://aftersolve.online), enter your Codeforce
 
 For questions or feedback:
 
-### Dinesh Panda  
+#### Dinesh Panda  
 - [LinkedIn/pandadinesh](https://www.linkedin.com/in/pandadinesh)  
 - pandaaa.dinesh3684@gmail.com  
 - [Discord](https://discord.com/users/1017847117991137340) 
 - [GitHub](https://github.com/zwyrm)
 
-### Prajesh Biswas 
+#### Prajesh Biswas 
 - [LinkedIn/biswasprajesh](https://www.linkedin.com/in/biswasprajesh)  
 - prajeshbiswas2005@gmail.com 
 - [GitHub](https://github.com/JeshByte)
