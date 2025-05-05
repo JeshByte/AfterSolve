@@ -1,0 +1,51 @@
+{
+  "name": "project-u",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fontsource/raleway": "^5.2.5",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.9.0",
+    "gh-pages": "^6.3.0",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.9.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-loader-spinner": "^6.1.6",
+    "react-multi-select-component": "^4.3.4",
+    "react-ripples": "^2.2.1",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.10.1",
+    "react-spinners": "^0.17.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
