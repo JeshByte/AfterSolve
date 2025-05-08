@@ -46,10 +46,41 @@ export default function App() {
   const [selectedSort, setSelectedSort] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [showRating, setShowRating] = useState(true);
-  const [showContest, setShowContest] = useState(true);
-  const [showTags, setShowTags] = useState(true);
-  const [showStatus, setShowStatus] = useState(true);
+  
+  const [showRating, setShowRating] = useState(() => {
+  const saved = localStorage.getItem("showRating");
+  return saved !== null ? JSON.parse(saved) : true;
+});
+const [showContest, setShowContest] = useState(() => {
+  const saved = localStorage.getItem("showContest");
+  return saved !== null ? JSON.parse(saved) : true;
+});
+const [showTags, setShowTags] = useState(() => {
+  const saved = localStorage.getItem("showTags");
+  return saved !== null ? JSON.parse(saved) : true;
+});
+const [showStatus, setShowStatus] = useState(() => {
+  const saved = localStorage.getItem("showStatus");
+  return saved !== null ? JSON.parse(saved) : true;
+});
+
+  useEffect(() => {
+  localStorage.setItem("showRating", JSON.stringify(showRating));
+}, [showRating]);
+
+useEffect(() => {
+  localStorage.setItem("showContest", JSON.stringify(showContest));
+}, [showContest]);
+
+useEffect(() => {
+  localStorage.setItem("showTags", JSON.stringify(showTags));
+}, [showTags]);
+
+useEffect(() => {
+  localStorage.setItem("showStatus", JSON.stringify(showStatus));
+}, [showStatus]);
+
+  
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const toggleStates = [showRating, showContest, showTags, showStatus];
   const checkedCount = toggleStates.filter(Boolean).length;
