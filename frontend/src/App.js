@@ -431,7 +431,7 @@ export default function App() {
                             rel="noopener noreferrer"
                             style={{ color: COLORS.headerBg, textDecoration: "none" }}
                           >
-                            {p.name}
+                            {p.rating == null ? "*" : ""}{p.name}
                           </a>
                         )
                       },
