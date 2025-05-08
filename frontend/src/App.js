@@ -49,36 +49,39 @@ export default function App() {
   
   const [showRating, setShowRating] = useState(() => {
   const saved = localStorage.getItem("showRating");
-  return saved !== null ? JSON.parse(saved) : true;
-});
-const [showContest, setShowContest] = useState(() => {
+  return saved !== null ? JSON.parse(saved) : true; 
+  });
+  
+  const [showContest, setShowContest] = useState(() => {
   const saved = localStorage.getItem("showContest");
-  return saved !== null ? JSON.parse(saved) : true;
-});
-const [showTags, setShowTags] = useState(() => {
+  return saved !== null ? JSON.parse(saved) : true; 
+  });
+  
+  const [showTags, setShowTags] = useState(() => {
   const saved = localStorage.getItem("showTags");
-  return saved !== null ? JSON.parse(saved) : true;
-});
-const [showStatus, setShowStatus] = useState(() => {
+  return saved !== null ? JSON.parse(saved) : true;  
+  });
+  
+  const [showStatus, setShowStatus] = useState(() => {
   const saved = localStorage.getItem("showStatus");
   return saved !== null ? JSON.parse(saved) : true;
-});
+  });
 
   useEffect(() => {
   localStorage.setItem("showRating", JSON.stringify(showRating));
-}, [showRating]);
+  }, [showRating]);
 
-useEffect(() => {
+  useEffect(() => {
   localStorage.setItem("showContest", JSON.stringify(showContest));
-}, [showContest]);
+  }, [showContest]);
 
-useEffect(() => {
+  useEffect(() => {
   localStorage.setItem("showTags", JSON.stringify(showTags));
-}, [showTags]);
+  }, [showTags]);
 
-useEffect(() => {
+  useEffect(() => {
   localStorage.setItem("showStatus", JSON.stringify(showStatus));
-}, [showStatus]);
+  }, [showStatus]);
 
   
   const [isConfigOpen, setIsConfigOpen] = useState(false);
