@@ -4,7 +4,7 @@ import axios from "axios";
 import { TailSpin } from 'react-loader-spinner';
 import cfLogo from "./images/codeforces-icon.png";
 import linkedinLogo from "./images/linkedin-icon.svg";
-import githubLogo from "./images/github-icon.svg";  
+import githubLogo from "./images/github-icon.svg";
 import "@fontsource/raleway/400.css";
 import "@fontsource/raleway/700.css";
 
@@ -84,7 +84,6 @@ export default function App() {
   }, [showStatus]);
 
   
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const toggleStates = [showRating, showContest, showTags, showStatus];
   const checkedCount = toggleStates.filter(Boolean).length;
@@ -115,10 +114,6 @@ export default function App() {
     { length: (3500 - 800) / 100 + 1 },
     (_, i) => ({ value: 800 + i * 100, label: `<= ${800 + i * 100}` })
   );
-  const categoryOptions = [
-    { value: "Ascending",  label: "Increasing" },
-    { value: "Descending", label: "Decreasing" }
-  ];
   const sortOptions = [
     { value: "Increasing", label: "Increasing" },
     { value: "Decreasing", label: "Decreasing" }
@@ -226,32 +221,25 @@ export default function App() {
     .filter(p => !tagVals.length || p.tags.some(t => tagVals.includes(t)));
 
   // apply sorting
-  if (selectedCategory || selectedTime || selectedSort) {
+  if (selectedTime || selectedSort) {
     filtered = [...filtered].sort((a, b) => {
-      // 1) Category sort by problem.index (A, B, C…)
-      if (selectedCategory) {
-        const dirC = selectedCategory.value === "Ascending" ? 1 : -1;
-        const cmp  = a.index.localeCompare(b.index);
-        if (cmp) return dirC * cmp;
-      }
-  
-      // 2) Time sort
-      if (selectedTime) {
+      if (selectedTime && selectedSort) {
         const dirT = selectedTime.value === "Oldest First" ? 1 : -1;
-        const dT   = (a.time || 0) - (b.time || 0);
+        const dT = (a.time || 0) - (b.time || 0);
         if (dT) return dirT * dT;
-      }
-  
-      // 3) Rating sort
-      if (selectedSort) {
         const dirR = selectedSort.value === "Increasing" ? 1 : -1;
         return dirR * ((a.rating || 0) - (b.rating || 0));
       }
-  
-      return 0;
+      if (selectedTime) {
+        const dirT = selectedTime.value === "Oldest First" ? 1 : -1;
+        const dT = (a.time || 0) - (b.time || 0);
+        if (dT) return dirT * dT;
+        return (a.rating || 0) - (b.rating || 0);
+      }
+      const dirR = selectedSort.value === "Increasing" ? 1 : -1;
+      return dirR * ((a.rating || 0) - (b.rating || 0));
     });
   }
-  
 
   // page logic
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -366,18 +354,14 @@ export default function App() {
 
       {/* filters */}
       <div style={{
-    fontSize: "0.85rem",
-    display: "flex",
-    flexWrap: "nowrap",        // prevent wrapping
-    gap: 16,
-    padding: "24px",
-    width: "100%",             // fill available width
-    alignItems: "center"
-  }}>
+        fontSize: "0.85rem",
+        display: "flex", flexWrap: "wrap", gap: 16,
+        padding: "24px", maxWidth: 1000, margin: "0 auto",
+        alignItems: "center"
+      }}>
         {[
           { opts: ratingOptions, val: selectedRating, cb: setSelectedRating, ph: "Max Rating" },
-          { opts: sortOptions,    val: selectedSort,   cb: setSelectedSort,   ph: "Rating Sort" },
-          { opts: categoryOptions, val: selectedCategory, cb: setSelectedCategory, ph: "Category Sort" },
+          { opts: sortOptions,    val: selectedSort,   cb: setSelectedSort,   ph: "Sort" },
           { opts: timeOptions,    val: selectedTime,   cb: setSelectedTime,   ph: "Time" }
         ].map((f, i) => (
           <div key={i} style={{ flex: "1 1 220px", minWidth: 220 }}>
@@ -471,7 +455,6 @@ export default function App() {
                     background: i % 2 ? COLORS.background : COLORS.altRowBg
                   }}>
                     {[
-                      { key: "Index",   content: startIndex + i + 1 },
                       {
                         key: "Problem",
                         content: (
@@ -481,7 +464,17 @@ export default function App() {
                             rel="noopener noreferrer"
                             style={{ color: COLORS.headerBg, textDecoration: "none" }}
                           >
-                             {p.index}. {p.rating == null ? "*" : ""}{p.name}
+                            <span
+                              style={{
+                                fontSize: "0.75em",
+                                fontWeight: "bold",
+                                marginRight: "0.25em",
+                                verticalAlign: "middle"
+                              }}
+                            >
+                              {p.index}.
+                            </span>
+                            {p.rating == null ? "*" : ""}{p.name}
                           </a>
                         )
                       },
@@ -523,14 +516,25 @@ export default function App() {
                     ]
                       .filter((_, idx) => [true, true, showRating, showContest, showTags, showStatus][idx])
                       .map((c, idx) => (
-                        <td key={c.key} style={{
-                          padding: 12,
-                          borderBottom: `1px solid ${COLORS.tdBorder}`,
-                          textAlign: idx === 0 ? "left" : "center",
-                          whiteSpace: ["Contest","Tags","Problem"].includes(c.key) ? "normal" : "nowrap",
-                          overflow: ["Contest","Tags","Problem"].includes(c.key) ? "visible" : "hidden"
-                        }}>
-                          {c.content}
+                        <td
+                          key={c.key}
+                          style={{
+                            padding: 12,
+                            borderBottom: `1px solid ${COLORS.tdBorder}`,
+                            textAlign: idx === 0 ? "left" : "center",
+                            verticalAlign: "top"          // align scroll-box tops
+                          }}
+                        >
+                          <div
+                            style={{
+                              maxHeight: "3em",         // fixed cell height
+                              overflowY: "auto",        // inner scrollbar
+                              whiteSpace: "normal",     // allow wrapping
+                              lineHeight: "1.2em"       // adjust as needed
+                            }}
+                          >
+                            {c.content}
+                          </div>
                         </td>
                       ))}
                   </tr>
