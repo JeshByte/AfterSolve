@@ -455,6 +455,7 @@ export default function App() {
                     background: i % 2 ? COLORS.background : COLORS.altRowBg
                   }}>
                     {[
+                      { key: "Index",   content: startIndex + i + 1 },
                       {
                         key: "Problem",
                         content: (
@@ -464,15 +465,6 @@ export default function App() {
                             rel="noopener noreferrer"
                             style={{ color: COLORS.headerBg, textDecoration: "none" }}
                           >
-                            <span
-                              style={{
-                                fontSize: "0.8em",
-                                marginRight: "0.25em",
-                                verticalAlign: "middle"
-                              }}
-                            >
-                              {p.index}.
-                            </span>
                             {p.rating == null ? "*" : ""}{p.name}
                           </a>
                         )
@@ -481,7 +473,7 @@ export default function App() {
                         key: "Rating",
                         content: (
                           <span style={tagStyle}>
-                            {p.rating != null ? p.rating : "tbd"}
+                            {p.index}. {p.rating == null ? "*" : ""}{p.name}
                           </span>
                         )
                       },
