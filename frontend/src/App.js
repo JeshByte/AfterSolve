@@ -465,7 +465,7 @@ export default function App() {
                             rel="noopener noreferrer"
                             style={{ color: COLORS.headerBg, textDecoration: "none" }}
                           >
-                            {p.rating == null ? "*" : ""}{p.name}
+                            {p.index}. {p.rating == null ? "*" : ""}{p.name}
                           </a>
                         )
                       },
@@ -473,7 +473,7 @@ export default function App() {
                         key: "Rating",
                         content: (
                           <span style={tagStyle}>
-                            {p.index}. {p.rating == null ? "*" : ""}{p.name}
+                            {p.rating != null ? p.rating : "tbd"}
                           </span>
                         )
                       },
