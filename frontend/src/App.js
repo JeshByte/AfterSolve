@@ -466,8 +466,7 @@ export default function App() {
                           >
                             <span
                               style={{
-                                fontSize: "0.75em",
-                                fontWeight: "bold",
+                                fontSize: "0.8em",
                                 marginRight: "0.25em",
                                 verticalAlign: "middle"
                               }}
@@ -523,14 +522,6 @@ export default function App() {
                           whiteSpace: ["Contest","Tags","Problem"].includes(c.key) ? "normal" : "nowrap",
                           overflow: ["Contest","Tags","Problem"].includes(c.key) ? "visible" : "hidden"
                         }}>
-                           <div
-              style={{
-                maxHeight: "3em",         // fixed cell height
-                overflowY: "auto",        // inner scrollbar
-                whiteSpace: "normal",     // allow wrapping
-                lineHeight: "1.2em"       // adjust as needed
-              }}
-            ></div>
                           {c.content}
                         </td>
                       ))}
