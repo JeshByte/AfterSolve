@@ -516,25 +516,22 @@ export default function App() {
                     ]
                       .filter((_, idx) => [true, true, showRating, showContest, showTags, showStatus][idx])
                       .map((c, idx) => (
-                        <td
-                          key={c.key}
-                          style={{
-                            padding: 12,
-                            borderBottom: `1px solid ${COLORS.tdBorder}`,
-                            textAlign: idx === 0 ? "left" : "center",
-                            verticalAlign: "top"          // align scroll-box tops
-                          }}
-                        >
-                          <div
-                            style={{
-                              maxHeight: "3em",         // fixed cell height
-                              overflowY: "auto",        // inner scrollbar
-                              whiteSpace: "normal",     // allow wrapping
-                              lineHeight: "1.2em"       // adjust as needed
-                            }}
-                          >
-                            {c.content}
-                          </div>
+                        <td key={c.key} style={{
+                          padding: 12,
+                          borderBottom: `1px solid ${COLORS.tdBorder}`,
+                          textAlign: idx === 0 ? "left" : "center",
+                          whiteSpace: ["Contest","Tags","Problem"].includes(c.key) ? "normal" : "nowrap",
+                          overflow: ["Contest","Tags","Problem"].includes(c.key) ? "visible" : "hidden"
+                        }}>
+                           <div
+              style={{
+                maxHeight: "3em",         // fixed cell height
+                overflowY: "auto",        // inner scrollbar
+                whiteSpace: "normal",     // allow wrapping
+                lineHeight: "1.2em"       // adjust as needed
+              }}
+            ></div>
+                          {c.content}
                         </td>
                       ))}
                   </tr>
